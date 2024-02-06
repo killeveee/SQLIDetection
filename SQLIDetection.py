@@ -77,22 +77,9 @@ def detect_post(urls, data):  # POST Method
 #     modified_url = parsed_url._replace(query=modified_query).geturl()
 #     return modified_url
 
-def banner():
-    print('''                                                                                               
-Usage: python SQLIDetection.py  [options]
-Options:
-    -h, --help            Show basic help message and exit
-    -u URL, --url=URL     Target URL (e.g. "http://www.site.com/vuln.php?id=1")
-    --urls=urls.txt       Target URLs (default urls.txt)
-    --data=DATA           Data string to be sent through POST (e.g. "id=1")
-    -a, --all             Batch full scan,include GET and POST (must use --urls)
-
-Note: You need to put the parameters that need to be detected at the end！！！
-    ''')
-
-
 def parse_arguments():
-    parser = argparse.ArgumentParser(usage=argparse.SUPPRESS)
+    parser = argparse.ArgumentParser(usage="python SQLIDetection.py  [options]",
+                                     description="Note: You need to put the parameters that need to be detected at the end！！！")
     parser.add_argument("-u", "--url", dest="url", action="append",
                         help="Target URL (e.g. 'http://www.site.com/vuln.php?id=1')")
     parser.add_argument("-a", "--all", dest="all", action='store_true',
@@ -135,10 +122,6 @@ if __name__ == "__main__":
     target_url = args.url if args.url else None
     data_string = args.data if args.data else None
     urls_from_file = read_urls_from_file(args.urls_file) if args.urls_file else None
-
-    if '-h' in vars(args) or '--help' in vars(args):
-        banner()
-        exit()
 
     print(f"[*] starting @ {current_time}")
 
